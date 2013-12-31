@@ -107,6 +107,32 @@ EOD
           expect(diff).to eq expected_diff
         end
 
+        it "outputs unified diff message of two hashes that differ in their final alphabetical key" do
+          expected = {
+            "foo" => "left",
+            "spiderman" => "2",
+            "california" => 'alabaster'
+          }
+          actual = {
+            "spiderman" => "2",
+            "foo" => "left",
+            "california" => 'alabaster',
+            "universe" => "cross"
+          }
+
+          expected_diff = <<'EOD'
+
+@@ -1,5 +1,4 @@
+ "california" => "alabaster",
+ "foo" => "left",
+ "spiderman" => "2",
++"universe" => "cross"
+EOD
+
+          diff = differ.diff_as_object(expected,actual)
+          expect(diff).to eq expected_diff
+        end
+
         it "outputs unified diff message of two arrays" do
           expected = [ :foo, 'bar', :baz, 'quux', :metasyntactic, 'variable', :delta, 'charlie', :width, 'quite wide' ]
           actual   = [ :foo, 'bar', :baz, 'quux', :metasyntactic, 'variable', :delta, 'tango'  , :width, 'very wide'  ]
