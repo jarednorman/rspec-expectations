@@ -87,6 +87,10 @@ module RSpec
         color(text, 34)
       end
 
+      def normal(text)
+        color(text, 0)
+      end
+
       def color_diff(diff)
         return diff unless RSpec::Matchers.configuration.color?
 
@@ -97,9 +101,9 @@ module RSpec
           when "-"
             red line
           when "@"
-            line[1].chr == "@" ? blue(line) : line
+            line[1].chr == "@" ? blue(line) : normal(line)
           else
-            line
+            normal(line)
           end
         }.join
       end
