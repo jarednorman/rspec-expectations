@@ -196,14 +196,14 @@ describe "#include matcher" do
 
       it "fails if the target includes all of the expected" do
         expect {
-          expect("abc").not_to include("c", "a")
-        }.to fail_with('expected "abc" not to include "c" and "a"')
+          expect("\nabc").not_to include("c", "a")
+        }.to fail_with('expected "\\nabc" not to include "c" and "a"')
       end
 
       it "fails if the target includes some (but not all) of the expected" do
         expect {
-          expect("abc").not_to include("d", "a")
-        }.to fail_with(%q{expected "abc" not to include "d" and "a"})
+          expect("\nabc").not_to include("d", "a")
+        }.to fail_with(%q{expected "\\nabc" not to include "d" and "a"})
       end
     end
 

@@ -5,6 +5,13 @@ require 'spec_helper'
 describe RSpec::Expectations, "#fail_with with diff of arrays" do
   before { allow(RSpec::Matchers.configuration).to receive_messages(:color? => false) }
 
+  it "diffs normal looking arrays" do
+    expected_diff = "\nDiff:\n@@ -1,3 +1,2 @@\nfoo\n-bar]n"
+    expect {
+      RSpec::Expectations.fail_with("", ['foo'], ['foo', 'bar'])
+    }.to fail_with(expected_diff)
+  end
+
   it "splits items with newlines" do
     expected_diff = "\nDiff:\n@@ -1 +1,3 @@\n+a\\nb\n+c\\nd\n"
     expect {
